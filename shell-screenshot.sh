@@ -30,9 +30,18 @@ if ! command_exists script; then
     exit 1
 fi
 
-# Capture the command output
+# Capture the command output with color support
 echo "Capturing output of command: $*"
-script -q -c "$*" "${output_file}"
+# Set up color environment
+TERM=xterm-256color
+# Handle different commands that need color
+if [[ "$1" == "ls" ]]; then
+    script -q -c "$* --color=always" "${output_file}"
+elif [[ "$1" == "git" ]]; then
+    script -q -c "git -c color.status=always $2" "${output_file}"
+else
+    script -q -c "$*" "${output_file}"
+fi
 
 # Check if capture was successful
 if [ $? -eq 0 ] && [ -f "${output_file}" ]; then
