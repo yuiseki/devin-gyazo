@@ -30,22 +30,41 @@ if ! command_exists script; then
     exit 1
 fi
 
+# Set up color environment
+export TERM=xterm-256color
+
 # Capture the command output with color support
 echo "Capturing output of command: $*"
-# Set up color environment
-TERM=xterm-256color
-# Handle different commands that need color
+
+# Force color output for common commands
 if [[ "$1" == "ls" ]]; then
-    script -q -c "$* --color=always" "${output_file}"
+    command="$* --color=always"
 elif [[ "$1" == "git" ]]; then
-    script -q -c "git -c color.status=always $2" "${output_file}"
+    command="git -c color.status=always -c color.ui=always $2"
 else
-    script -q -c "$*" "${output_file}"
+    # Try to force color for other commands if they support it
+    case "$1" in
+        "grep") command="$* --color=always" ;;
+        "diff") command="$* --color=always" ;;
+        *) command="$*" ;;
+    esac
 fi
 
-# Check if capture was successful
+# Capture command output
+script -q -c "$command" "${output_file}"
+
+# Check if capture was successful and clean up output
 if [ $? -eq 0 ] && [ -f "${output_file}" ]; then
-    echo "Shell output captured successfully"
+    # Create a temporary file for cleanup
+    temp_file="${output_file}.tmp"
+    # Remove script headers, footers, and blank lines
+    grep -v "^Script \(started\|done\)" "${output_file}" | \
+    grep -v "^\[COMMAND_EXIT_CODE=" | \
+    grep -v "^\[TERM=" | \
+    sed '/^\s*$/d' > "${temp_file}"
+    mv "${temp_file}" "${output_file}"
+    
+    echo "Shell output captured and cleaned successfully"
     
     # Function to parse ANSI color codes and text segments
 parse_ansi_color_line() {
