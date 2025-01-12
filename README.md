@@ -13,7 +13,9 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 - `curl` for API requests
 - `jq` for JSON parsing
+- `textimg` for terminal text rendering and ANSI color support
 - Gyazo account and access token
+- (Optional) Noto Sans CJK font for better CJK character rendering
 
 ## Setup
 
@@ -21,6 +23,16 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
    ```bash
    sudo apt-get update
    sudo apt-get install -y curl jq
+   
+   # Install textimg for terminal text rendering
+   wget https://github.com/jiro4989/textimg/releases/download/v3.1.9/textimg_3.1.9_linux_amd64.deb
+   sudo dpkg -i textimg_3.1.9_linux_amd64.deb
+   
+   # Optional: Install Noto Sans CJK font for better CJK support
+   wget https://github.com/notofonts/noto-cjk/raw/main/Sans/OTC/NotoSansCJK-Regular.ttc
+   sudo mkdir -p /usr/share/fonts/truetype/noto
+   sudo mv NotoSansCJK-Regular.ttc /usr/share/fonts/truetype/noto/
+   sudo fc-cache -f -v
    ```
 
 2. Set up your Gyazo access token:
