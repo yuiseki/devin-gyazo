@@ -40,18 +40,18 @@ if [ $? -eq 0 ] && [ -f "${output_file}" ]; then
     
     # Convert text to image
     image_file="${screenshots_dir}/shell_${timestamp}.png"
-    # Create base image
-    convert -size 800x400 xc:white "${image_file}"
+    # Create base image with dark theme matching terminal
+    convert -size 800x400 xc:'#2B2B2B' "${image_file}"
     
-    # Add text line by line
-    y_pos=20
+    # Add text line by line with terminal-like appearance
+    y_pos=25
     while IFS= read -r line; do
         # Escape special characters in the line
         escaped_line=$(echo "$line" | sed 's/"/\\"/g')
-        # Add the line to the image
-        convert "${image_file}" -pointsize 12 -font Courier -fill black \
-            -draw "text 10,${y_pos} \"${escaped_line}\"" "${image_file}"
-        y_pos=$((y_pos + 20))
+        # Add the line to the image with terminal-like colors
+        convert "${image_file}" -pointsize 14 -font "DejaVu-Sans-Mono" -fill '#D4D4D4' \
+            -draw "text 15,${y_pos} \"${escaped_line}\"" "${image_file}"
+        y_pos=$((y_pos + 25))
     done < "${output_file}"
     
     if [ $? -eq 0 ] && [ -f "${image_file}" ]; then
