@@ -30,29 +30,67 @@ if ! command_exists script; then
     exit 1
 fi
 
-# Capture the command output
-echo "Capturing output of command: $*"
-script -q -c "$*" "${output_file}"
+# Set up color environment
+export TERM=xterm-256color
 
-# Check if capture was successful
+# Capture the command output with color support
+echo "Capturing output of command: $*"
+
+# Force color output for common commands
+if [[ "$1" == "ls" ]]; then
+    command="$* --color=always"
+elif [[ "$1" == "git" ]]; then
+    command="git -c color.status=always -c color.ui=always $2"
+else
+    # Try to force color for other commands if they support it
+    case "$1" in
+        "grep") command="$* --color=always" ;;
+        "diff") command="$* --color=always" ;;
+        *) command="$*" ;;
+    esac
+fi
+
+# Capture command output
+script -q -c "$command" "${output_file}"
+
+# Check if capture was successful and clean up output
 if [ $? -eq 0 ] && [ -f "${output_file}" ]; then
-    echo "Shell output captured successfully"
+    # Create a temporary file for cleanup
+    temp_file="${output_file}.tmp"
+    # Remove script headers, footers, and blank lines
+    grep -v "^Script \(started\|done\)" "${output_file}" | \
+    grep -v "^\[COMMAND_EXIT_CODE=" | \
+    grep -v "^\[TERM=" | \
+    sed '/^\s*$/d' > "${temp_file}"
+    mv "${temp_file}" "${output_file}"
     
-    # Convert text to image
-    image_file="${screenshots_dir}/shell_${timestamp}.png"
-    # Create base image
-    convert -size 800x400 xc:white "${image_file}"
+    echo "Shell output captured and cleaned successfully"
     
-    # Add text line by line
-    y_pos=20
-    while IFS= read -r line; do
-        # Escape special characters in the line
-        escaped_line=$(echo "$line" | sed 's/"/\\"/g')
-        # Add the line to the image
-        convert "${image_file}" -pointsize 12 -font Courier -fill black \
-            -draw "text 10,${y_pos} \"${escaped_line}\"" "${image_file}"
-        y_pos=$((y_pos + 20))
-    done < "${output_file}"
+    # Note: ANSI color parsing is now handled by textimg
+
+# Clean up script command metadata
+clean_script_output() {
+    local input_file="$1"
+    local temp_file="${input_file}.tmp"
+    
+    # Remove script command metadata and empty lines
+    grep -v "^Script \(started\|done\)" "${input_file}" | \
+    grep -v "^\[COMMAND_EXIT_CODE=" | \
+    grep -v "^\[TERM=" | \
+    grep -v "^.*\[?.*@.*\].*$" | \
+    sed '/^\s*$/d' > "${temp_file}"
+    
+    mv "${temp_file}" "${input_file}"
+}
+
+# Clean the captured output
+clean_script_output "${output_file}"
+
+# Convert text to image using textimg
+image_file="${screenshots_dir}/shell_${timestamp}.png"
+echo "Converting shell output to image using textimg..."
+# Convert hex color #2B2B2B to RGB format (43,43,43) and use full font path
+textimg -b "43,43,43,255" -f "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf" -o "${image_file}" < "${output_file}"
     
     if [ $? -eq 0 ] && [ -f "${image_file}" ]; then
         echo "Shell screenshot saved as image: ${image_file}"
