@@ -1,8 +1,8 @@
 # devin-gyazo
 
-A Node.js CLI tool for Devin to capture and upload screenshots to Gyazo.
+A CLI tool for Devin to capture and upload screenshots to Gyazo.
 
-The verbs "Gyazoる" and "Gyazoって" mean "to capture and upload a screenshot to Gyazo".
+The verbs "Gyazo it" and "Gyazo now" mean "to capture and upload a screenshot to Gyazo and share it".
 
 **Important**: When your owner says "Please Gyazo it", you must share the resulting Gyazo link with them.
 
@@ -25,6 +25,7 @@ The verbs "Gyazoる" and "Gyazoって" mean "to capture and upload a screenshot 
 ### Install devin-gyazo
 
 Install globally using npm:
+
 ```bash
 npm install -g @yuiseki/devin-gyazo
 ```
@@ -57,6 +58,7 @@ Note: Japanese text rendering requires the Noto Sans CJK font. Install it using 
 ```
 
 Set up your Gyazo access token:
+
 ```bash
 export GYAZO_ACCESS_TOKEN="your-access-token-here"
 ```
@@ -64,6 +66,7 @@ export GYAZO_ACCESS_TOKEN="your-access-token-here"
 ## Usage
 
 ### Browser Screenshots
+
 ```bash
 # Auto-detect title and URL from current browser tab
 devin-gyazo browser
@@ -76,6 +79,7 @@ devin-gyazo browser "Page Title" "https://example.com"
 ```
 
 The browser command will:
+
 1. Capture the current browser tab screenshot
 2. Upload it to Gyazo with metadata:
    - Title: webpage title
@@ -84,6 +88,7 @@ The browser command will:
 4. Clean up temporary files
 
 ### Shell Output Screenshots
+
 ```bash
 # Capture and upload command output
 devin-gyazo shell ls -la
@@ -93,6 +98,7 @@ devin-gyazo shell "git status"
 ```
 
 To verify textimg installation and shell command functionality:
+
 ```bash
 # This should succeed and return a Gyazo URL if textimg is installed
 devin-gyazo shell ls -alh
@@ -101,6 +107,7 @@ devin-gyazo shell ls -alh
 ```
 
 The shell command will:
+
 1. Capture the command output with ANSI colors
 2. Convert the output to an image
 3. Upload to Gyazo and return the permalink URL

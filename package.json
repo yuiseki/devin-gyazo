@@ -1,7 +1,7 @@
 {
   "name": "@yuiseki/devin-gyazo",
-  "version": "1.0.1",
-  "description": "A collection of automation scripts for capturing and uploading screenshots to Gyazo.",
+  "version": "1.0.2",
+  "description": "A CLI tool for Devin to capture and upload screenshots to Gyazo.",
   "main": "index.js",
   "bin": {
     "devin-gyazo": "bin/devin-gyazo.js"
