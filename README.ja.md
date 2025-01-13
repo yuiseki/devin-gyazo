@@ -22,7 +22,13 @@ Gyazoでスクリーンショットを撮影・アップロードするための
 
 ## セットアップ
 
-1. 必要なツールをインストール:
+1. リポジトリをクローン:
+   ```bash
+   cd ~/repos/
+   git clone https://github.com/yuiseki/devin-gyazo.git
+   ```
+
+2. 必要なツールをインストール:
    ```bash
    sudo apt-get update
    sudo apt-get install -y curl jq
@@ -40,7 +46,7 @@ Gyazoでスクリーンショットを撮影・アップロードするための
 メタデータ付きでブラウザスクリーンショットをアップロードするには gyazo-browser.sh を使用します:
 
 ```bash
-./gyazo-browser.sh "ページタイトル" "https://example.com"
+~/repos/devin-gyazo/gyazo-browser.sh "ページタイトル" "https://example.com"
 ```
 
 スクリプトの動作:
@@ -57,7 +63,7 @@ Gyazoでスクリーンショットを撮影・アップロードするための
 シェル出力をキャプチャしてアップロードするには gyazo-shell.sh を使用します:
 
 ```bash
-./gyazo-shell.sh "ls -la"
+~/repos/devin-gyazo/gyazo-shell.sh "ls -la"
 ```
 
 スクリプトの動作:
