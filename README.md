@@ -2,6 +2,10 @@
 
 A Node.js CLI tool for Devin to capture and upload screenshots to Gyazo.
 
+The verbs "Gyazoる" and "Gyazoって" mean "to capture and upload a screenshot to Gyazo".
+
+**Important**: When your owner says "Gyazoってください", you must share the resulting Gyazo link with them.
+
 ## Features
 
 - Automated browser screenshot capture with metadata support
