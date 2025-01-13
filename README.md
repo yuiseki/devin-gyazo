@@ -90,6 +90,12 @@ The browser command will:
 ### Shell Output Screenshots
 
 ```bash
+# Capture current shell state
+devin-gyazo shell
+
+# Same as above, explicitly using current mode
+devin-gyazo shell current
+
 # Capture and upload command output
 devin-gyazo shell ls -la
 
