@@ -12,27 +12,38 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 ## Requirements
 
-- `curl` for API requests
-- `jq` for JSON parsing
-- `textimg` for terminal text rendering and ANSI color support
 - Gyazo account and access token (see [Setup Guide](SETUP.md))
-- (Optional) Noto Sans CJK font for better CJK character rendering
+- For CLI usage: Node.js and npm
+- For shell script usage:
+  - `curl` for API requests
+  - `jq` for JSON parsing
+  - `textimg` for terminal text rendering and ANSI color support
+  - (Optional) Noto Sans CJK font for better CJK character rendering
 
-## Setup
+## Installation
+
+### NPM Package (Recommended)
+
+Install globally using npm:
+```bash
+npm install -g @yuiseki/devin-gyazo
+```
+
+Set up your Gyazo access token:
+```bash
+export GYAZO_ACCESS_TOKEN="your-access-token-here"
+```
+
+### Manual Setup (Alternative)
+
+If you prefer to use the shell scripts directly:
 
 1. Clone the repository:
    ```bash
-   cd ~/repos/
    git clone https://github.com/yuiseki/devin-gyazo.git
    ```
 
-2. Install Node.js dependencies (required for auto mode):
-   ```bash
-   cd ~/repos/devin-gyazo
-   npm ci
-   ```
-
-3. Ensure you have the required tools installed:
+2. Install required tools:
    ```bash
    sudo apt-get update
    sudo apt-get install -y curl jq
@@ -48,6 +59,11 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
    sudo fc-cache -f -v
    ```
 
+3. Install Node.js dependencies (required for auto mode):
+   ```bash
+   npm ci
+   ```
+
 4. Set up your Gyazo access token:
    ```bash
    export GYAZO_ACCESS_TOKEN="your-access-token-here"
@@ -55,19 +71,31 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 ## Usage
 
-### Browser Screenshots
+### Using the CLI (Recommended)
 
-Use gyazo-browser.sh to upload browser screenshots with metadata. You can use either auto mode or manual mode:
-
-### Auto Mode
+#### Browser Screenshots
 ```bash
-~/repos/devin-gyazo/gyazo-browser.sh auto
+# Auto-detect title and URL from current browser tab
+devin-gyazo browser
+
+# Same as above, explicitly using auto mode
+devin-gyazo browser auto
+
+# Manually specify title and URL
+devin-gyazo browser "Page Title" "https://example.com"
 ```
-This will automatically capture a screenshot of the current browser tab and upload it to Gyazo with the page's title and URL.
 
-### Manual Mode
+### Using Shell Scripts (Alternative)
+
+The original shell scripts are still available for direct use:
+
+#### Browser Screenshots
 ```bash
-~/repos/devin-gyazo/gyazo-browser.sh "Page Title" "https://example.com"
+# Auto mode
+./gyazo-browser.sh auto
+
+# Manual mode
+./gyazo-browser.sh "Page Title" "https://example.com"
 ```
 Before running in manual mode:
 1. Take a screenshot of your browser and save it to `/home/ubuntu/screenshots/`
