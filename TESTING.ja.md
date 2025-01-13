@@ -1,12 +1,23 @@
-# テストガイド
+# 開発テストガイド
 
-このドキュメントではdevin-gyazo CLIコマンドのテスト手順について説明します。
+このドキュメントではdevin-gyazo CLIコマンドの開発とテストの手順について説明します。エンドユーザーのインストールと使用方法については、README.ja.mdを参照してください。
 
 ## 前提条件
 
-1. パッケージをグローバルにインストール：
+1. ローカル開発環境のセットアップ：
    ```bash
-   npm install -g @yuiseki/devin-gyazo
+   # リポジトリのクローン
+   git clone https://github.com/yuiseki/devin-gyazo.git
+   cd devin-gyazo
+
+   # 依存関係のインストール
+   npm install
+
+   # グローバルシンボリックリンクの作成
+   npm link
+
+   # コマンドが利用可能か確認
+   devin-gyazo --help
    ```
 
 2. Gyazoアクセストークンの設定：

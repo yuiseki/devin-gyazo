@@ -1,12 +1,23 @@
-# Testing Guide
+# Development Testing Guide
 
-This document outlines the testing procedures for the devin-gyazo CLI commands.
+This document outlines the testing procedures for developing and testing the devin-gyazo CLI commands. For end-user installation and usage, please refer to the README.md file.
 
 ## Prerequisites
 
-1. Install the package globally:
+1. Set up local development environment:
    ```bash
-   npm install -g @yuiseki/devin-gyazo
+   # Clone the repository
+   git clone https://github.com/yuiseki/devin-gyazo.git
+   cd devin-gyazo
+
+   # Install dependencies
+   npm install
+
+   # Create a global symlink
+   npm link
+
+   # Verify the command is available
+   devin-gyazo --help
    ```
 
 2. Set up your Gyazo access token:
