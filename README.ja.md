@@ -16,12 +16,33 @@ Devinがスクリーンショットを簡単にGyazoにアップロードでき�
 
 - Gyazoアカウントとアクセストークン（[セットアップガイド](SETUP.ja.md)を参照）
 - Node.jsとnpm
+- textimgコマンド（shellサブコマンドに必要）
 
 ## インストール
+
+### devin-gyazoのインストール
 
 npmを使用してグローバルにインストール:
 ```bash
 npm install -g @yuiseki/devin-gyazo
+```
+
+### textimgのインストール（shellコマンドに必要）
+
+`shell`サブコマンドを使用するにはtextimgが必要です：
+
+```bash
+# .debパッケージをダウンロード
+wget https://github.com/jiro4989/textimg/releases/download/v3.1.9/textimg_3.1.9_linux_amd64.deb
+
+# パッケージをインストール
+sudo dpkg -i textimg_3.1.9_linux_amd64.deb
+
+# オプション：CJK文字のレンダリング改善のためにNoto Sans CJKフォントをインストール
+sudo mkdir -p /usr/share/fonts/truetype/noto
+wget -O NotoSansCJK-Regular.ttc https://github.com/notofonts/noto-cjk/raw/main/Sans/OTC/NotoSansCJK-Regular.ttc
+sudo mv NotoSansCJK-Regular.ttc /usr/share/fonts/truetype/noto/
+sudo fc-cache -f -v
 ```
 
 Gyazoアクセストークンの設定:

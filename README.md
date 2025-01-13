@@ -14,12 +14,33 @@ A Node.js CLI tool for Devin to capture and upload screenshots to Gyazo.
 
 - Gyazo account and access token (see [Setup Guide](SETUP.md))
 - Node.js and npm
+- textimg command for shell output capture (required for `shell` subcommand)
 
 ## Installation
+
+### Install devin-gyazo
 
 Install globally using npm:
 ```bash
 npm install -g @yuiseki/devin-gyazo
+```
+
+### Install textimg (required for shell command)
+
+The `shell` subcommand requires textimg for capturing terminal output:
+
+```bash
+# Download the .deb package
+wget https://github.com/jiro4989/textimg/releases/download/v3.1.9/textimg_3.1.9_linux_amd64.deb
+
+# Install the package
+sudo dpkg -i textimg_3.1.9_linux_amd64.deb
+
+# Optional: Install Noto Sans CJK font for better CJK character rendering
+sudo mkdir -p /usr/share/fonts/truetype/noto
+wget -O NotoSansCJK-Regular.ttc https://github.com/notofonts/noto-cjk/raw/main/Sans/OTC/NotoSansCJK-Regular.ttc
+sudo mv NotoSansCJK-Regular.ttc /usr/share/fonts/truetype/noto/
+sudo fc-cache -f -v
 ```
 
 Set up your Gyazo access token:
