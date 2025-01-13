@@ -11,12 +11,43 @@ if [ -z "${GYAZO_ACCESS_TOKEN}" ]; then
     exit 1
 fi
 
-# Check if required parameters are provided
-if [ $# -lt 2 ]; then
-    echo "Usage: $0 <webpage_title> <referer_url>" >&2
-    echo "Example: $0 'Example Domain' 'https://example.com'" >&2
+# Function to get browser page info using JavaScript
+get_browser_info() {
+    # Run JavaScript to get page title and URL
+    run_javascript_browser "console.log('PAGE_TITLE=' + document.title); console.log('PAGE_URL=' + window.location.href);" >/dev/null 2>&1
+    
+    # Get console output and parse for title and URL
+    console_output=$(get_browser_console)
+    
+    # Extract title and URL using grep and cut
+    page_title=$(echo "$console_output" | grep "PAGE_TITLE=" | cut -d'=' -f2-)
+    page_url=$(echo "$console_output" | grep "PAGE_URL=" | cut -d'=' -f2-)
+    
+    # Verify we got both values
+    if [ -z "$page_title" ] || [ -z "$page_url" ]; then
+        echo "Error: Failed to get page title or URL from browser" >&2
+        exit 1
+    fi
+    
+    # Set global variables
+    title="$page_title"
+    referer_url="$page_url"
+}
+
+# Check parameters
+if [ $# -eq 1 ] && [ "$1" = "auto" ]; then
+    echo "Auto mode: Getting page info from browser..."
+    get_browser_info
+elif [ $# -lt 2 ]; then
+    echo "Usage: $0 [auto | <webpage_title> <referer_url>]" >&2
+    echo "Examples:" >&2
+    echo "  $0 auto                           # Auto-detect title and URL from browser" >&2
+    echo "  $0 'Example Domain' 'https://example.com'  # Manually specify title and URL" >&2
     echo "Note: webpage_title should be the original page title, preserved exactly as shown in the browser" >&2
     exit 1
+else
+    title="$1"
+    referer_url="$2"
 fi
 
 # Function to check if a command exists
