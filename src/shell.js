@@ -10,6 +10,16 @@ if (!fs.existsSync(screenshotsDir)) {
   fs.mkdirSync(screenshotsDir, { recursive: true });
 }
 
+// Check if textimg command exists
+function checkTextimgCommand() {
+  try {
+    execSync('which textimg', { stdio: 'ignore' });
+    return true;
+  } catch (error) {
+    throw new Error('textimg command not found. Please install textimg first. See README for installation instructions.');
+  }
+}
+
 // Helper for uploading to Gyazo
 async function uploadToGyazo(filePath) {
   if (!process.env.GYAZO_ACCESS_TOKEN) {
@@ -50,6 +60,9 @@ async function uploadToGyazo(filePath) {
 // Main handler for "shell" command
 async function handleShellCommand(args) {
   try {
+    // Check if textimg is installed
+    checkTextimgCommand();
+
     // Check if command was provided
     if (args.length === 0) {
       console.error('Error: No shell command provided');
