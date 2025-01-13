@@ -1,6 +1,6 @@
 # devin-gyazo
 
-ブラウザのスクリーンショットを簡単にGyazoにアップロードできるNode.js CLIツールです。
+Devinがスクリーンショットを簡単にGyazoにアップロードできるNode.js CLIツールです。
 
 「Gyazoる」「Gyazoって」という動詞は「スクリーンショットを撮影してGyazoにアップロードする」という意味です。
 

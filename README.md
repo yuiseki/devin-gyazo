@@ -1,6 +1,6 @@
 # devin-gyazo
 
-A Node.js CLI tool for capturing and uploading browser screenshots to Gyazo.
+A Node.js CLI tool for Devin to capture and upload screenshots to Gyazo.
 
 ## Features
 
