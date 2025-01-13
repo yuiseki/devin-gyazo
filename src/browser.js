@@ -5,6 +5,12 @@ const path = require('path');
 const https = require('https');
 const FormData = require('form-data');
 
+// Ensure screenshots directory exists
+const screenshotsDir = '/home/ubuntu/screenshots';
+if (!fs.existsSync(screenshotsDir)) {
+  fs.mkdirSync(screenshotsDir, { recursive: true });
+}
+
 function getDebugPort() {
   try {
     const processes = execSync(
