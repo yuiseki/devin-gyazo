@@ -43,10 +43,17 @@ Gyazoでスクリーンショットを撮影・アップロードするための
 
 ### ブラウザスクリーンショット
 
-メタデータ付きでブラウザスクリーンショットをアップロードするには gyazo-browser.sh を使用します:
+メタデータ付きでブラウザスクリーンショットをアップロードするには gyazo-browser.sh を使用します。自動モードまたは手動モードを選択できます:
 
 > **重要**: スクリーンショットは `/home/ubuntu/screenshots/` ディレクトリに `browser_*.png` の形式で保存する必要があります（例: `browser_20240113_120000.png`）。スクリプトは自動的にこの形式に一致する最新のファイルを探します。
 
+### 自動モード
+```bash
+~/repos/devin-gyazo/gyazo-browser.sh auto
+```
+現在アクティブなChromeタブからページタイトルとURLを自動的に取得し、そのデータを使用してGyazoにアップロードします。
+
+### 手動モード
 ```bash
 ~/repos/devin-gyazo/gyazo-browser.sh "ページタイトル" "https://example.com"
 ```
