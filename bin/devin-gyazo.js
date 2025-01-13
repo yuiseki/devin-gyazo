@@ -14,6 +14,7 @@ if (args.length === 0) {
   console.log('\nUsage:');
   console.log('  devin-gyazo browser auto                        # Auto-detect title and URL from browser');
   console.log('  devin-gyazo browser <webpage_title> <url>       # Manually specify title and URL');
+  console.log('  devin-gyazo shell <command>                     # Capture and upload shell command output');
   process.exit(1);
 }
 
@@ -41,10 +42,34 @@ if (command === 'browser') {
   });
 
   process.exit(result.status);
+} else if (command === 'shell') {
+  // Path to the shell screenshot script
+  const shellScript = path.resolve(scriptDir, '..', 'gyazo-shell.sh');
+  
+  // Remove the 'shell' command from args
+  const scriptArgs = args.slice(1);
+  
+  if (scriptArgs.length === 0) {
+    console.error('Error: Missing command for shell screenshot');
+    console.log('\nUsage:');
+    console.log('  devin-gyazo shell <command>                     # Capture and upload shell command output');
+    console.log('\nExample:');
+    console.log('  devin-gyazo shell "ls -la"                      # Capture and upload directory listing');
+    process.exit(1);
+  }
+
+  // Execute the shell screenshot script with the remaining arguments
+  const result = spawnSync(shellScript, scriptArgs, {
+    stdio: 'inherit',
+    shell: true
+  });
+
+  process.exit(result.status);
 } else {
   console.error(`Error: Unknown command '${command}'`);
   console.log('\nUsage:');
   console.log('  devin-gyazo browser auto                        # Auto-detect title and URL from browser');
   console.log('  devin-gyazo browser <webpage_title> <url>       # Manually specify title and URL');
+  console.log('  devin-gyazo shell <command>                     # Capture and upload shell command output');
   process.exit(1);
 }
