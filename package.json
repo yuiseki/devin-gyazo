@@ -9,11 +9,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["gyazo", "screenshot", "cli", "devin"],
+  "keywords": [
+    "gyazo",
+    "screenshot",
+    "cli",
+    "devin"
+  ],
   "author": "Yui Matsumura <yuiseki@gmail.com> (https://twitter.com/yuiseki_)",
   "license": "WTFPL",
   "dependencies": {
-    "playwright": "^1.49.1",
-    "form-data": "^4.0.0"
+    "form-data": "^4.0.0",
+    "node-pty": "^1.0.0",
+    "playwright": "^1.49.1"
   }
 }
