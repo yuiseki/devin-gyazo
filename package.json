@@ -13,6 +13,7 @@
   "author": "yuiseki",
   "license": "ISC",
   "dependencies": {
-    "playwright": "^1.49.1"
+    "playwright": "^1.49.1",
+    "form-data": "^4.0.0"
   }
 }
