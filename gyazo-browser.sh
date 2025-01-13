@@ -62,7 +62,7 @@ if [ -f "${screenshot_path}" ]; then
     curl -s -X POST \
          -H "Authorization: Bearer ${GYAZO_ACCESS_TOKEN}" \
          -F "imagedata=@${screenshot_path}" \
-         -F "app=${app}" \
+         -F "app=Devin Browser" \
          -F "title=${title}" \
          -F "referer_url=${referer_url}" \
          https://upload.gyazo.com/api/upload | jq -r '.permalink_url'
