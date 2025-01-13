@@ -43,12 +43,27 @@ devin-gyazo browser auto
 devin-gyazo browser "ページタイトル" "https://example.com"
 ```
 
-コマンドの動作:
+browserコマンドの動作:
 1. 現在のブラウザタブのスクリーンショットを撮影
 2. メタデータ付きでGyazoにアップロード:
    - タイトル: ウェブページのタイトル
    - URL: ウェブページのURL
 3. Gyazoのパーマリンクを出力
+4. 一時ファイルをクリーンアップ
+
+### シェル出力のスクリーンショット
+```bash
+# コマンド出力をキャプチャしてアップロード
+devin-gyazo shell ls -la
+
+# 任意のシェルコマンドで動作
+devin-gyazo shell "git status"
+```
+
+shellコマンドの動作:
+1. ANSIカラー対応でコマンド出力をキャプチャ
+2. 出力を画像に変換
+3. Gyazoにアップロードしてパーマリンクを出力
 4. 一時ファイルをクリーンアップ
 
 ## ライセンス

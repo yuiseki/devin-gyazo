@@ -41,12 +41,27 @@ devin-gyazo browser auto
 devin-gyazo browser "Page Title" "https://example.com"
 ```
 
-The command will:
+The browser command will:
 1. Capture the current browser tab screenshot
 2. Upload it to Gyazo with metadata:
    - Title: webpage title
    - URL: webpage URL
 3. Output the Gyazo permalink URL
+4. Clean up temporary files
+
+### Shell Output Screenshots
+```bash
+# Capture and upload command output
+devin-gyazo shell ls -la
+
+# Works with any shell command
+devin-gyazo shell "git status"
+```
+
+The shell command will:
+1. Capture the command output with ANSI colors
+2. Convert the output to an image
+3. Upload to Gyazo and return the permalink URL
 4. Clean up temporary files
 
 ## License
