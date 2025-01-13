@@ -3,6 +3,7 @@
 # gyazo-browser.sh
 # Usage: ./gyazo-browser.sh <title> <referer_url>
 # This script uploads browser screenshots to Gyazo with metadata
+# Note: The title parameter should be the original webpage title, preserved as-is
 
 # Check if GYAZO_ACCESS_TOKEN is set
 if [ -z "${GYAZO_ACCESS_TOKEN}" ]; then
@@ -12,8 +13,9 @@ fi
 
 # Check if required parameters are provided
 if [ $# -lt 2 ]; then
-    echo "Usage: $0 <title> <referer_url>" >&2
-    echo "Example: $0 'Page Title' 'https://example.com'" >&2
+    echo "Usage: $0 <webpage_title> <referer_url>" >&2
+    echo "Example: $0 'Example Domain' 'https://example.com'" >&2
+    echo "Note: webpage_title should be the original page title, preserved exactly as shown in the browser" >&2
     exit 1
 fi
 
