@@ -56,6 +56,18 @@ function getDebugPort() {
     const page = pages[0];
     await page.waitForLoadState("networkidle");
 
+    // Ensure screenshots directory exists
+    const fs = require('fs');
+    const screenshotsDir = '/home/ubuntu/screenshots';
+    if (!fs.existsSync(screenshotsDir)) {
+      fs.mkdirSync(screenshotsDir, { recursive: true });
+    }
+
+    // Take screenshot with timestamp using playwright prefix
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const screenshotPath = `${screenshotsDir}/playwright_${timestamp}.png`;
+    await page.screenshot({ path: screenshotPath });
+
     const info = {
       title: await page.title(),
       url: page.url(),

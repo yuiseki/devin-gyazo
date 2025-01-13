@@ -53,18 +53,19 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 Use gyazo-browser.sh to upload browser screenshots with metadata. You can use either auto mode or manual mode:
 
-> **Important**: Screenshots must be saved in the `/home/ubuntu/screenshots/` directory with the naming pattern `browser_*.png` (e.g., `browser_20240113_120000.png`). The script will automatically look for the most recent file matching this pattern.
-
 ### Auto Mode
 ```bash
 ~/repos/devin-gyazo/gyazo-browser.sh auto
 ```
-This will automatically detect the page title and URL from the currently active Chrome tab and use that data for the Gyazo upload.
+This will automatically capture a screenshot of the current browser tab and upload it to Gyazo with the page's title and URL.
 
 ### Manual Mode
 ```bash
 ~/repos/devin-gyazo/gyazo-browser.sh "Page Title" "https://example.com"
 ```
+Before running in manual mode:
+1. Take a screenshot of your browser and save it to `/home/ubuntu/screenshots/`
+2. Run the script with the exact page title and URL from your browser
 
 The script will:
 1. Find the most recent browser screenshot (browser_*.png)
