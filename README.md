@@ -20,7 +20,13 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 ## Setup
 
-1. Ensure you have the required tools installed:
+1. Clone the repository:
+   ```bash
+   cd ~/repos/
+   git clone https://github.com/yuiseki/devin-gyazo.git
+   ```
+
+2. Ensure you have the required tools installed:
    ```bash
    sudo apt-get update
    sudo apt-get install -y curl jq
@@ -48,7 +54,7 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 Use gyazo-browser.sh to upload browser screenshots with metadata:
 
 ```bash
-./gyazo-browser.sh "Page Title" "https://example.com"
+~/repos/devin-gyazo/gyazo-browser.sh "Page Title" "https://example.com"
 ```
 
 The script will:
@@ -65,7 +71,7 @@ The script will:
 Use gyazo-shell.sh to capture and upload shell output:
 
 ```bash
-./gyazo-shell.sh "ls -la"
+~/repos/devin-gyazo/gyazo-shell.sh "ls -la"
 ```
 
 The script will:
