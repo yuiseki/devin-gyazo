@@ -14,7 +14,7 @@ fi
 # Check if required parameters are provided
 if [ $# -lt 2 ]; then
     echo "Usage: $0 <webpage_title> <referer_url>" >&2
-    echo "Example: $0 'My Webpage - Example Site' 'https://example.com'" >&2
+    echo "Example: $0 'Example Domain' 'https://example.com'" >&2
     echo "Note: webpage_title should be the original page title, preserved exactly as shown in the browser" >&2
     exit 1
 fi
