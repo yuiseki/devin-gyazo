@@ -25,22 +25,6 @@ get_browser_info() {
         exit 1
     fi
     
-    if ! command -v nc >/dev/null 2>&1; then
-        echo "Error: netcat (nc) is required for auto mode but not installed" >&2
-        echo "Please install netcat using: sudo apt-get install netcat" >&2
-        exit 1
-    fi
-    
-    if [ ! -f "${script_dir}/package.json" ]; then
-        echo "Initializing Node.js project for auto mode..."
-        (cd "${script_dir}" && npm init -y)
-    fi
-    
-    if [ ! -d "${script_dir}/node_modules/playwright" ]; then
-        echo "Installing Playwright for auto mode..."
-        (cd "${script_dir}" && npm install playwright)
-    fi
-    
     # Run the Node.js script and capture its output
     browser_info=$(node "${script_dir}/get_browser_info.js")
     if [ $? -ne 0 ]; then
