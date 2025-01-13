@@ -4,7 +4,7 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 ## Features
 
-- Automated browser screenshot capture with metadata support
+- Automated browser screenshot capture with metadata support (preserves webpage titles)
 - Shell output capture with ANSI color support
 - Direct upload to Gyazo using API with app identification
 - JSON response parsing for permalink URL extraction
@@ -55,7 +55,7 @@ The script will:
 1. Find the most recent browser screenshot (browser_*.png)
 2. Upload it to Gyazo with metadata:
    - App name: "Devin Browser"
-   - Title: specified page title
+   - Title: original webpage title (preserved as-is)
    - Referer URL: specified page URL
 3. Output the Gyazo permalink URL
 4. Clean up temporary files
