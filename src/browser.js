@@ -45,8 +45,6 @@ function getDebugPort() {
 
 async function getBrowserInfo() {
   const port = getDebugPort();
-  console.error(`Connecting to Chrome on port ${port}...`);
-
   const browser = await chromium.connectOverCDP(`http://localhost:${port}`);
   const contexts = browser.contexts();
 
