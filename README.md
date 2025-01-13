@@ -47,6 +47,8 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 Use gyazo-browser.sh to upload browser screenshots with metadata:
 
+> **Important**: Screenshots must be saved in the `/home/ubuntu/screenshots/` directory with the naming pattern `browser_*.png` (e.g., `browser_20240113_120000.png`). The script will automatically look for the most recent file matching this pattern.
+
 ```bash
 ./gyazo-browser.sh "Page Title" "https://example.com"
 ```

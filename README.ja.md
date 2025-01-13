@@ -39,6 +39,8 @@ Gyazoでスクリーンショットを撮影・アップロードするための
 
 メタデータ付きでブラウザスクリーンショットをアップロードするには gyazo-browser.sh を使用します:
 
+> **重要**: スクリーンショットは `/home/ubuntu/screenshots/` ディレクトリに `browser_*.png` の形式で保存する必要があります（例: `browser_20240113_120000.png`）。スクリプトは自動的にこの形式に一致する最新のファイルを探します。
+
 ```bash
 ./gyazo-browser.sh "ページタイトル" "https://example.com"
 ```
