@@ -4,8 +4,9 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 ## Features
 
-- Automated browser screenshot capture
-- Direct upload to Gyazo using API
+- Automated browser screenshot capture with metadata support
+- Shell output capture with ANSI color support
+- Direct upload to Gyazo using API with app identification
 - JSON response parsing for permalink URL extraction
 - Automatic cleanup of temporary files
 
@@ -42,17 +43,37 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 
 ## Usage
 
-The script will automatically find the most recent screenshot in the `/home/ubuntu/screenshots/` directory and upload it to Gyazo:
+### Browser Screenshots
+
+Use gyazo-browser.sh to upload browser screenshots with metadata:
 
 ```bash
-./gyazo-screenshot.sh
+./gyazo-browser.sh "Page Title" "https://example.com"
 ```
 
 The script will:
-1. Look for the most recent screenshot
-2. Upload it to Gyazo
+1. Find the most recent browser screenshot (browser_*.png)
+2. Upload it to Gyazo with metadata:
+   - App name: "Devin Browser"
+   - Title: specified page title
+   - Referer URL: specified page URL
 3. Output the Gyazo permalink URL
 4. Clean up temporary files
+
+### Shell Output
+
+Use gyazo-shell.sh to capture and upload shell output:
+
+```bash
+./gyazo-shell.sh "ls -la"
+```
+
+The script will:
+1. Capture the command output with ANSI colors
+2. Convert the output to an image
+3. Upload to Gyazo with app name "Devin Shell"
+4. Output the Gyazo permalink URL
+5. Clean up temporary files
 
 ## Error Handling
 
