@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# gyazo-browser.sh
+# Usage: ./gyazo-browser.sh <title> <referer_url>
+# This script uploads browser screenshots to Gyazo with metadata
+
 # Check if GYAZO_ACCESS_TOKEN is set
 if [ -z "${GYAZO_ACCESS_TOKEN}" ]; then
     echo "Error: GYAZO_ACCESS_TOKEN environment variable is not set" >&2
@@ -7,9 +11,9 @@ if [ -z "${GYAZO_ACCESS_TOKEN}" ]; then
 fi
 
 # Check if required parameters are provided
-if [ $# -lt 3 ]; then
-    echo "Usage: $0 <app> <title> <referer_url>" >&2
-    echo "Example: $0 'MyApp' 'Page Title' 'https://example.com'" >&2
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <title> <referer_url>" >&2
+    echo "Example: $0 'Page Title' 'https://example.com'" >&2
     exit 1
 fi
 
@@ -27,9 +31,8 @@ for cmd in jq curl; do
 done
 
 # Get parameters
-app="$1"
-title="$2"
-referer_url="$3"
+title="$1"
+referer_url="$2"
 
 # Get current timestamp for unique filename
 timestamp=$(date +%Y%m%d_%H%M%S)
