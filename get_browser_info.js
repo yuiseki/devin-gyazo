@@ -57,8 +57,10 @@ function getDebugPort() {
             url: page.url()
         };
         
+        // Output page info
         console.log(`タイトル: ${info.title}`);
         console.log(`URL: ${info.url}`);
+        
         await browser.close();
     } catch (error) {
         console.error('Error:', error.message);

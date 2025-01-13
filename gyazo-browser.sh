@@ -42,15 +42,15 @@ get_browser_info() {
     fi
     
     # Run the Node.js script and capture its output
-    info=$(node "${script_dir}/get_browser_info.js")
+    browser_info=$(node "${script_dir}/get_browser_info.js")
     if [ $? -ne 0 ]; then
         echo "Error: Failed to get page info from browser" >&2
         exit 1
     fi
     
     # Parse the output lines to get title and URL
-    title=$(echo "$info" | grep "タイトル:" | sed 's/タイトル: //')
-    referer_url=$(echo "$info" | grep "URL:" | sed 's/URL: //')
+    title=$(echo "$browser_info" | grep "タイトル:" | sed 's/タイトル: //')
+    referer_url=$(echo "$browser_info" | grep "URL:" | sed 's/URL: //')
     
     if [ -z "$title" ] || [ -z "$referer_url" ]; then
         echo "Error: Failed to parse page info from browser" >&2
@@ -94,17 +94,16 @@ done
 
 # Parameters have already been set by either get_browser_info() or command line arguments
 
+# Ensure screenshots directory exists
+mkdir -p /home/ubuntu/screenshots
+
 # Get current timestamp for unique filename
 timestamp=$(date +%Y%m%d_%H%M%S)
 screenshot_path="/home/ubuntu/screenshots/browser_${timestamp}.png"
 
-# Ensure screenshots directory exists
-mkdir -p /home/ubuntu/screenshots
-
 # Find the most recent screenshot
 echo "Looking for recent screenshot..."
 latest_screenshot=$(ls -t /home/ubuntu/screenshots/browser_*.png 2>/dev/null | head -n1)
-
 if [ -z "$latest_screenshot" ]; then
     echo "Error: No screenshot found in /home/ubuntu/screenshots/" >&2
     exit 1
@@ -113,26 +112,19 @@ fi
 echo "Found screenshot: $latest_screenshot"
 cp "$latest_screenshot" "${screenshot_path}"
 
-# Ensure the screenshot exists and is readable
 if [ ! -f "${screenshot_path}" ]; then
     echo "Error: Screenshot file not found at ${screenshot_path}" >&2
     exit 1
 fi
 
-# Upload to Gyazo with metadata and extract permalink URL
-if [ -f "${screenshot_path}" ]; then
-    echo "Uploading screenshot to Gyazo..."
-    curl -s -X POST \
-         -H "Authorization: Bearer ${GYAZO_ACCESS_TOKEN}" \
-         -F "imagedata=@${screenshot_path}" \
-         -F "app=Devin Browser" \
-         -F "title=${title}" \
-         -F "referer_url=${referer_url}" \
-         https://upload.gyazo.com/api/upload | jq -r '.permalink_url'
-    
-    # Clean up screenshot file after successful upload
-    rm -f "${screenshot_path}"
-else
-    echo "Error: Screenshot file not found" >&2
-    exit 1
-fi
+echo "Uploading screenshot to Gyazo..."
+curl -s -X POST \
+     -H "Authorization: Bearer ${GYAZO_ACCESS_TOKEN}" \
+     -F "imagedata=@${screenshot_path}" \
+     -F "app=Devin Browser" \
+     -F "title=${title}" \
+     -F "referer_url=${referer_url}" \
+     https://upload.gyazo.com/api/upload | jq -r '.permalink_url'
+
+# Clean up screenshot file after successful upload
+rm -f "${screenshot_path}"
