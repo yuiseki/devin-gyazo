@@ -96,8 +96,16 @@ textimg -b "43,43,43,255" -f "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.tt
         echo "Shell screenshot saved as image: ${image_file}"
         # Clean up text output file
         rm -f "${output_file}"
-        # Output image file size for verification
-        du -h "${image_file}"
+        # Upload to Gyazo with app name
+        echo "Uploading shell screenshot to Gyazo..."
+        curl -s -X POST \
+             -H "Authorization: Bearer ${GYAZO_ACCESS_TOKEN}" \
+             -F "imagedata=@${image_file}" \
+             -F "app=Devin Shell" \
+             https://upload.gyazo.com/api/upload | jq -r '.permalink_url'
+        
+        # Clean up image file after successful upload
+        rm -f "${image_file}"
     else
         echo "Error: Failed to convert output to image"
         exit 1
