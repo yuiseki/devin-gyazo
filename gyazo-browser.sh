@@ -101,9 +101,9 @@ mkdir -p /home/ubuntu/screenshots
 timestamp=$(date +%Y%m%d_%H%M%S)
 screenshot_path="/home/ubuntu/screenshots/browser_${timestamp}.png"
 
-# Find the most recent screenshot (check both browser and playwright patterns)
+# Find the most recent screenshot
 echo "Looking for recent screenshot..."
-latest_screenshot=$(ls -t /home/ubuntu/screenshots/{browser,playwright}_*.png 2>/dev/null | head -n1)
+latest_screenshot=$(ls -t /home/ubuntu/screenshots/*.png 2>/dev/null | head -n1)
 if [ -z "$latest_screenshot" ]; then
     echo "Error: No screenshot found in /home/ubuntu/screenshots/" >&2
     exit 1
