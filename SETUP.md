@@ -1,42 +1,42 @@
-# セットアップガイド
+# Setup Guide
 
-## Gyazo APIの利用開始方法
+## Getting Started with Gyazo API
 
-このリポジトリのスクリプトを使用するには、Gyazo Access Tokenが必要です。以下の手順で取得してください：
+To use the scripts in this repository, you'll need a Gyazo Access Token. Follow these steps to obtain one:
 
-1. **メールアドレスの準備**
-   - 有効なメールアドレスを用意してください
+1. **Prepare Your Email**
+   - Have a valid email address ready
 
-2. **Gyazoアカウントの作成**
-   - [Gyazo Signup](https://gyazo.com/signup) にアクセス
-   - 登録フォームに必要事項を入力
-   - 注意：ユーザー登録には人間によるreCAPTCHAの確認が必要です
+2. **Create a Gyazo Account**
+   - Visit [Gyazo Signup](https://gyazo.com/signup)
+   - Fill out the registration form
+   - Note: User registration requires human verification through reCAPTCHA
 
-3. **APIドキュメントの確認**
-   - [Gyazo API Documentation](https://gyazo.com/api) にOAuth APIのドキュメントがあります
+3. **Review API Documentation**
+   - OAuth API documentation is available at [Gyazo API Documentation](https://gyazo.com/api)
 
-4. **アプリケーションの登録**
-   - [Gyazo OAuth Applications](https://gyazo.com/oauth/applications) にアクセス
-   - 「New Application」ボタンをクリック
-   - アプリケーション情報を入力
+4. **Register Your Application**
+   - Go to [Gyazo OAuth Applications](https://gyazo.com/oauth/applications)
+   - Click the "New Application" button
+   - Enter your application details
 
-5. **Access Tokenの生成**
-   - アプリケーション登録後
-   - 「Your access token」セクションを探す
-   - 「Generate」ボタンをクリックしてAccess Tokenを生成
+5. **Generate Access Token**
+   - After registering your application
+   - Look for the "Your access token" section
+   - Click the "Generate" button to create your Access Token
 
-6. **Access Tokenの設定**
-   - Access Tokenを取得したら：
-     - システム管理者に共有
-     - 管理者がDevinの設定画面でSecretsに追加
-     - `GYAZO_ACCESS_TOKEN`環境変数として利用可能になります
+6. **Configure Access Token**
+   - Once you have your Access Token:
+     - Share it with your system administrator
+     - The admin will add it to Devin's Secrets configuration
+     - It will be available as the `GYAZO_ACCESS_TOKEN` environment variable
 
-## Access Tokenの使用方法
+## Using the Access Token
 
-このリポジトリのスクリプトは、環境変数としてAccess Tokenを設定する必要があります：
+The scripts in this repository require the Access Token to be set as an environment variable:
 
 ```bash
 export GYAZO_ACCESS_TOKEN="your-access-token-here"
 ```
 
-**重要**: Access Tokenをバージョン管理システムにコミットしないでください。必ず環境変数やセキュアなシークレット管理を使用してください。
+**Important**: Never commit your Access Token to version control. Always use environment variables or secure secret management.
