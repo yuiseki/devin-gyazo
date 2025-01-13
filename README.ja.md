@@ -28,13 +28,19 @@ Gyazoでスクリーンショットを撮影・アップロードするための
    git clone https://github.com/yuiseki/devin-gyazo.git
    ```
 
-2. 必要なツールをインストール:
+2. Node.js依存関係のインストール（自動モードに必要）:
+   ```bash
+   cd ~/repos/devin-gyazo
+   npm ci
+   ```
+
+3. 必要なツールをインストール:
    ```bash
    sudo apt-get update
    sudo apt-get install -y curl jq
    ```
 
-2. Gyazoアクセストークンの設定:
+4. Gyazoアクセストークンの設定:
    ```bash
    export GYAZO_ACCESS_TOKEN="your-access-token-here"
    ```
