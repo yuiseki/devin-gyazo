@@ -40,7 +40,7 @@ mkdir -p /home/ubuntu/screenshots
 
 # Find the most recent screenshot
 echo "Looking for recent screenshot..."
-latest_screenshot=$(ls -t /home/ubuntu/screenshots/example_*.png 2>/dev/null | head -n1)
+latest_screenshot=$(ls -t /home/ubuntu/screenshots/browser_*.png 2>/dev/null | head -n1)
 
 if [ -z "$latest_screenshot" ]; then
     echo "Error: No screenshot found in /home/ubuntu/screenshots/" >&2
