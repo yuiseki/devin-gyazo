@@ -45,8 +45,6 @@ function getDebugPort() {
 
 async function getBrowserInfo() {
   const port = getDebugPort();
-  console.error(`Connecting to Chrome on port ${port}...`);
-
   const browser = await chromium.connectOverCDP(`http://localhost:${port}`);
   const contexts = browser.contexts();
 
@@ -123,7 +121,8 @@ async function handleBrowserCommand(args) {
   try {
     let title, url, screenshotPath;
 
-    if (args[0] === 'auto') {
+    // Default to auto mode if no arguments or 'auto' is specified
+    if (args.length === 0 || args[0] === 'auto') {
       const info = await getBrowserInfo();
       title = info.title;
       url = info.url;
