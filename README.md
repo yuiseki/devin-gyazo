@@ -14,7 +14,7 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
 - `curl` for API requests
 - `jq` for JSON parsing
 - `textimg` for terminal text rendering and ANSI color support
-- Gyazo account and access token
+- Gyazo account and access token (see [Setup Guide](SETUP.md))
 - (Optional) Noto Sans CJK font for better CJK character rendering
 
 ## Setup
