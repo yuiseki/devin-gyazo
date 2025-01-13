@@ -126,6 +126,61 @@ async function handleShellCommand(args) {
   }
 }
 
+async function handleShellNoCommand() {
+  try {
+    // Check if textimg is installed
+    checkTextimgCommand();
+
+    const pty = require('node-pty');
+    
+    // spawn an interactive shell
+    const shell = pty.spawn('/bin/bash', [], {
+      name: 'xterm-color',
+      cols: 80,
+      rows: 30,
+      cwd: process.env.HOME,
+      env: { ...process.env, TERM: 'xterm-256color' },
+    });
+
+    let outputData = '';
+    shell.onData(data => {
+      outputData += data;
+    });
+
+    // Wait for a short period or until we detect no more new data
+    await new Promise(resolve => setTimeout(resolve, 500));
+    shell.kill();
+
+    // Generate unique filenames with timestamp
+    const timestamp = Date.now();
+    const textOutputPath = path.join(screenshotsDir, `shell_${timestamp}.out`);
+    const imageOutputPath = path.join(screenshotsDir, `shell_${timestamp}.png`);
+
+    // Write captured output to file
+    fs.writeFileSync(textOutputPath, outputData, 'utf-8');
+
+    // Convert text to image using textimg
+    const textimgCmd = `textimg -b "43,43,43,255" -f "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf" -o "${imageOutputPath}" < "${textOutputPath}"`;
+    const textimgResult = spawnSync(textimgCmd, { shell: true });
+    
+    if (textimgResult.status !== 0) {
+      throw new Error('Error converting output to image with textimg');
+    }
+
+    // Upload screenshot to Gyazo
+    const gyazoUrl = await uploadToGyazo(imageOutputPath);
+    console.log(gyazoUrl);
+
+    // Clean up temporary files
+    fs.unlinkSync(textOutputPath);
+    fs.unlinkSync(imageOutputPath);
+  } catch (error) {
+    console.error('Error:', error.message);
+    process.exit(1);
+  }
+}
+
 module.exports = {
-  handleShellCommand
+  handleShellCommand,
+  handleShellNoCommand
 };
