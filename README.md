@@ -26,7 +26,13 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
    git clone https://github.com/yuiseki/devin-gyazo.git
    ```
 
-2. Ensure you have the required tools installed:
+2. Install Node.js dependencies (required for auto mode):
+   ```bash
+   cd ~/repos/devin-gyazo
+   npm ci
+   ```
+
+3. Ensure you have the required tools installed:
    ```bash
    sudo apt-get update
    sudo apt-get install -y curl jq
