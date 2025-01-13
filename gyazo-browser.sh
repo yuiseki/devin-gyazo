@@ -49,7 +49,7 @@ get_browser_info() {
     fi
     
     # Parse the output lines to get title and URL
-    title=$(echo "$browser_info" | grep "タイトル:" | sed 's/タイトル: //')
+    title=$(echo "$browser_info" | grep "TITLE:" | sed 's/TITLE: //')
     referer_url=$(echo "$browser_info" | grep "URL:" | sed 's/URL: //')
     
     if [ -z "$title" ] || [ -z "$referer_url" ]; then
