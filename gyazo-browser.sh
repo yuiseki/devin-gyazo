@@ -11,27 +11,54 @@ if [ -z "${GYAZO_ACCESS_TOKEN}" ]; then
     exit 1
 fi
 
-# Function to get browser page info using JavaScript
+# Function to get browser page info using Node.js script
 get_browser_info() {
-    # Run JavaScript to get page title and URL
-    run_javascript_browser "console.log('PAGE_TITLE=' + document.title); console.log('PAGE_URL=' + window.location.href);" >/dev/null 2>&1
+    echo "Getting page info from browser..."
+    local script_dir
+    script_dir="$(dirname "$0")"
+    local info
     
-    # Get console output and parse for title and URL
-    console_output=$(get_browser_console)
-    
-    # Extract title and URL using grep and cut
-    page_title=$(echo "$console_output" | grep "PAGE_TITLE=" | cut -d'=' -f2-)
-    page_url=$(echo "$console_output" | grep "PAGE_URL=" | cut -d'=' -f2-)
-    
-    # Verify we got both values
-    if [ -z "$page_title" ] || [ -z "$page_url" ]; then
-        echo "Error: Failed to get page title or URL from browser" >&2
+    # Check Node.js and required packages for auto mode
+    if ! command -v node >/dev/null 2>&1; then
+        echo "Error: Node.js is required for auto mode but not installed" >&2
+        echo "Please install Node.js using your package manager" >&2
         exit 1
     fi
     
-    # Set global variables
-    title="$page_title"
-    referer_url="$page_url"
+    if ! command -v nc >/dev/null 2>&1; then
+        echo "Error: netcat (nc) is required for auto mode but not installed" >&2
+        echo "Please install netcat using: sudo apt-get install netcat" >&2
+        exit 1
+    fi
+    
+    if [ ! -f "${script_dir}/package.json" ]; then
+        echo "Initializing Node.js project for auto mode..."
+        (cd "${script_dir}" && npm init -y)
+    fi
+    
+    if [ ! -d "${script_dir}/node_modules/playwright" ]; then
+        echo "Installing Playwright for auto mode..."
+        (cd "${script_dir}" && npm install playwright)
+    fi
+    
+    # Run the Node.js script and capture its output
+    info=$(node "${script_dir}/get_browser_info.js")
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to get page info from browser" >&2
+        exit 1
+    fi
+    
+    # Parse the output lines to get title and URL
+    title=$(echo "$info" | grep "タイトル:" | sed 's/タイトル: //')
+    referer_url=$(echo "$info" | grep "URL:" | sed 's/URL: //')
+    
+    if [ -z "$title" ] || [ -z "$referer_url" ]; then
+        echo "Error: Failed to parse page info from browser" >&2
+        exit 1
+    fi
+    
+    echo "Detected title: $title"
+    echo "Detected URL: $referer_url"
 }
 
 # Check parameters
@@ -63,9 +90,9 @@ for cmd in jq curl; do
     fi
 done
 
-# Get parameters
-title="$1"
-referer_url="$2"
+# Auto mode dependencies are checked within get_browser_info
+
+# Parameters have already been set by either get_browser_info() or command line arguments
 
 # Get current timestamp for unique filename
 timestamp=$(date +%Y%m%d_%H%M%S)

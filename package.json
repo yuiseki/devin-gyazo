@@ -1,0 +1,15 @@
+{
+  "name": "devin-gyazo",
+  "version": "1.0.0",
+  "description": "A collection of automation scripts for capturing and uploading screenshots to Gyazo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.49.1"
+  }
+}
