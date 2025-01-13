@@ -115,4 +115,4 @@ The shell command will:
 
 ## License
 
-MIT License
+WTFPL License
