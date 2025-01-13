@@ -48,7 +48,7 @@ A collection of automation scripts for capturing and uploading screenshots to Gy
    sudo fc-cache -f -v
    ```
 
-2. Set up your Gyazo access token:
+4. Set up your Gyazo access token:
    ```bash
    export GYAZO_ACCESS_TOKEN="your-access-token-here"
    ```
