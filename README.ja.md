@@ -85,6 +85,12 @@ browserコマンドの動作:
 
 ### シェル出力のスクリーンショット
 ```bash
+# 現在のシェル状態をキャプチャ
+devin-gyazo shell
+
+# 上記と同じ、明示的にcurrentモードを指定
+devin-gyazo shell current
+
 # コマンド出力をキャプチャしてアップロード
 devin-gyazo shell ls -la
 
